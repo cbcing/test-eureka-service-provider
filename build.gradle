@@ -1,0 +1,61 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.3.RELEASE'
+    }
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/libs-snapshot-local" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+group = 'com.cbcing'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+ext {
+    name = 'Eureka Service Provider'
+    description = 'Eureka Service Provider'
+    version = '0.0.1-SNAPSHOT'
+    sourceEncoding = 'UTF-8'
+}
+
+repositories {
+//	mavenCentral()
+    jcenter()
+    maven { url 'https://repo.spring.io/release/' }
+    maven { url "http://repo.spring.io/libs-snapshot-local" }
+    maven { url "http://repo.spring.io/libs-milestone-local" }
+    maven { url "http://repo.spring.io/libs-release-local" }
+}
+
+
+dependencies {
+    compile group: 'me.moocar', name: 'logback-gelf', version: '0.3'
+    compile group: 'ch.qos.logback', name: 'logback-classic'
+    compile group: 'ch.qos.logback', name: 'logback-core'
+    compile group: 'com.google.guava', name: 'guava', version: '22.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-logging')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    compileOnly('org.projectlombok:lombok')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
+    testCompile('junit:junit')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Brixton.BUILD-SNAPSHOT"
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
