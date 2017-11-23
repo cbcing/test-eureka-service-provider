@@ -8,6 +8,8 @@ RUN cd /tmp && \
 
 FROM java:8-jre-alpine
 
+ENV JAVA_OPTS -Dspring.profiles.active=docker
+
 COPY --from=build /tmp/build/libs/test-eureka-service-provider-0.0.1-SNAPSHOT.jar /
 
 ENTRYPOINT ["java", "-server", "-jar", "/test-eureka-service-provider-0.0.1-SNAPSHOT.jar"]
